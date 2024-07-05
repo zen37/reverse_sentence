@@ -1,7 +1,7 @@
 from reverse import Solution
 test_cases = [
     ("TODAY IS MONDAY", "MONDAY IS TODAY"),
-    ("HEUTE IST MONTAG", "MONTAG IST HEUTE"),
+    ("HEUTE IST MONTAG!", "MONTAG! IST HEUTE"),
     ("HEUTE IST MONTAG ODER FREITAG", "FREITAG ODER MONTAG IST HEUTE")
 ]
 
