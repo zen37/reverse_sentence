@@ -5,6 +5,7 @@ test_cases = [
 
 def test_reverse_sentence():
     s = Solution()
-    for sentence, expected in test_cases:
+    for (sentence, expected) in test_cases:
         result = s.reverse_sentence(sentence)
+        print(result)
         assert result == expected, f"FAIL, reversed sentence: {result} vs {expected} "
