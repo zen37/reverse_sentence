@@ -30,7 +30,6 @@ def is_memory_now_less(current, start):
     return current <= start
 
 
-
 class Solution:
     def reverse_sentence(self, input :str) -> str:
 
@@ -56,22 +55,18 @@ class Solution:
             input_word = FILL
             char = input[i]
             if not char.isspace():
-                #print(f"word[{k}]: {char}")
-                word[k] += char  # Append char to current 
-                #print(word)
+                word[k] += char
                 current = calculate_memory_space(word)
                 if (not is_memory_now_less(current, mem_start )): 
-                        print(f"You failed miserably! memory now: {current} vs memory start: {mem_start}")
-                        return
+                    print(f"You failed miserably! word memory now: {current} vs memory start: {mem_start}")
+                    return
                 #else:
-                #    print(f"memory now: {current} vs memory start: {mem_start} for word")
+                #    print(f"word memory now: {current} vs memory start: {mem_start}")
                 k += 1
                 s += 1 #deduct spaces
             else:   
-                #print(f"word[{k}]: {char}")
                 for i in range(len(word)):
                     input_word = input_word + word[i]
-                #input_words.pop() # take one out before putting back
                 input_words[n] = input_word
                 if n == k:
                     input_words.pop() # take one out before putting back
@@ -85,8 +80,6 @@ class Solution:
             for i in range(len(word)):
                 if  word[i] != FILL:
                     input_word = input_word + word[i]
-                    #print(input_word)
-            #print("before pop: ", input_words)
             for i in range(s):
                input_words.pop()
             #print("after pop: ", input_words)
@@ -101,7 +94,7 @@ class Solution:
             print(f"You failed miserably! input_words memory now: {current} vs memory start: {mem_start}")
             return
         else:
-            print(f"memory now: {current} vs memory start: {mem_start} for input_words")
+            print(f"input_words memory now: {current} vs memory start: {mem_start}")
 
         print(f"output_words{output_words}")
         j = 0
@@ -125,44 +118,46 @@ class Solution:
             print(f"You failed! memory now: {current} vs memory start: {mem_start}")
             return
         else:
-            print(f"memory now: {current} vs memory start: {mem_start} for output_words")
+            print(f"output_words memory now: {current} vs memory start: {mem_start}")
 
-        w = 0
+        w, s = 0, 0
         for j in range(len(output_words)):
             if output_words[j] != FILL:
-                print(output_words[j])
-                for i in range(len(output_words[j])):
-                    #print(i)
-                    #print("before pop:", output)
-                    output.pop()
-                    #print("after pop:", output)
-                    w += 1
-
-                if len(output) > 2:
-                    output[0] = output[0] + output_words[j] + SPACE
+                m = len(output)
+                if m > w + 3:
+                    for i in range(len(output_words[j])+1):
+                        output.pop()
                 else:
-                    output[0] = output[0] + output_words[j] 
-                #print("oiutout: ", output)
-                #print(len(output))
-                if len(output) == w - 1:
-                    output.pop()
-                #print("createing the output: ", output)
-        
+                    for i in range(len(output_words[j])-1):
+                        output.pop()
+                s = 0
+                w += 1
+            
+                if len(output) >= w - 1:
+                    output[0] = output[0] + output_words[j] + SPACE
+                    current = calculate_memory_space(output)
+                    if (not is_memory_now_less(current, mem_start )): 
+                        print(f"You failed miserably! output memory now: {current} vs memory start: {mem_start}")
+                        return
+                    #else:
+                    #    print(f"output memory now: {current} vs memory start: {mem_start}")
+                else:
+                     output[0] = output[0] + output_words[j]
+            
         print(f"output: {output}")
-        current = calculate_memory_space(input_words)
+        current = calculate_memory_space(output)
+        
         if (not is_memory_now_less(current, mem_start )): 
-            print(f"You failed miserably! memory now: {current} vs memory start: {mem_start}")
+            print(f"You failed miserably! output memory now: {current} vs memory start: {mem_start}")
             return
         else:
-            print(f"memory now: {current} vs memory start: {mem_start} for output")
-
-
-
+            print(f"output memory now: {current} vs memory start: {mem_start}")
+        
 
         return output[0]
 
 if __name__ == "__main__":
-    input = "TODAY IS MONDAY"
+    input = "THURSDAY 4th of JULY HAS BEEN A MISERABLE DAY"
     print(f"sentence: {input}")
     s = Solution()
     output = s.reverse_sentence(input)

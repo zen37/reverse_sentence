@@ -8,7 +8,6 @@
 ## Whiteboard
 
 input = "TODAY IS MONDAY"
-K = 0
 
 Input_words = [] * len(input) => output = [                        ]
 output = [] * len(input) => output = [                        ]
